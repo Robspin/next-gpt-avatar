@@ -1,4 +1,5 @@
 # next-boilerplate
+
 A next starter with the following:
 * pnpm
 * tailwind
@@ -7,6 +8,6 @@ A next starter with the following:
 
 ### quickstart
 
-`pnpm i`
-
-`pnpm run dev`
+* clone the repository
+* `pnpm i`
+* `pnpm run dev`
