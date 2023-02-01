@@ -1,0 +1,48 @@
+name: Deploy
+on:
+  workflow_call:
+    inputs:
+      folder:
+        required: true
+        type: string
+      bucket:
+        required: true
+        type: string
+      dist-id:
+        required: true
+        type: string
+      node-version:
+        required: true
+        type: string
+jobs:
+  build:
+    runs-on: [ self-hosted ]
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Add env
+        run: 'echo "$ENV" > .env'
+        shell: bash
+        env:
+          ENV: ${{secrets.ENV}}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run export
+
+      - name: Deploy
+        uses: lbertenasco/s3-deploy@v1
+        with:
+          folder: ${{ inputs.folder }}
+          bucket: ${{ inputs.bucket }}
+          dist-id: ${{ inputs.dist-id }}
+          invalidation: / *
