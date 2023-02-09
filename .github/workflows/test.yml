@@ -9,3 +9,5 @@ jobs:
   test:
     uses: tracefy/github-actions-workflows/.github/workflows/node-test.yml@v1
     secrets: inherit
+    with:
+      node-version: 18.x
