@@ -26,6 +26,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ inputs.node-version }}
+          registry-url: https://npm.pkg.github.com/
+          username: ${{ secrets.GH_PA_USER }}
+          password: ${{ secrets.GH_PA_TOKEN }}
 
       - name: Add env
         run: 'echo "$ENV" > .env'
@@ -34,10 +37,12 @@ jobs:
           ENV: ${{secrets.ENV}}
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install -g pnpm
+          pnpm ci
 
       - name: Build
-        run: npm run export
+        run: pnpm run export
 
       - name: Deploy
         uses: lbertenasco/s3-deploy@v1
