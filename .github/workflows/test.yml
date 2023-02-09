@@ -19,4 +19,4 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install -g pnpm
       - run: pnpm install --no-frozen-lockfile
-      - run: pnpm run dev
+      - run: pnpm run test:ci
