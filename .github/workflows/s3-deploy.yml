@@ -26,9 +26,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ inputs.node-version }}
-          registry-url: https://npm.pkg.github.com/
-          username: ${{ secrets.GH_PA_USER }}
-          password: ${{ secrets.GH_PA_TOKEN }}
+
+      - name: Add NPMRC
+        run: 'echo "$NPMRC" > .npmrc'
+        shell: bash
+        env:
+          NPMRC: ${{secrets.NPMRC}}
 
       - name: Add env
         run: 'echo "$ENV" > .env'

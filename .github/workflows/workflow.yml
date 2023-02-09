@@ -21,13 +21,12 @@ jobs:
     secrets: inherit
   todo:
     needs:
-      - init
+      - test
     uses: tracefy/github-actions-workflows/.github/workflows/utilities-todo.yml@v1
     secrets: inherit
   deploy:
     needs:
-#       - test
-      - todo
+      - test
     uses: ./.github/workflows/s3-deploy.yml
     secrets: inherit
     with:
