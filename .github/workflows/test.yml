@@ -6,6 +6,21 @@ on:
     branches: [ "master" ]
 
 jobs:
+#  test:
+#    uses: tracefy/github-actions-workflows/.github/workflows/test.yml@v1
+#    secrets: inherit
+
   test:
-    uses: tracefy/github-actions-workflows/.github/workflows/test.yml@v1
-    secrets: inherit
+    runs-on: [ self-hosted ]
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install -g pnpm
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm run test:ci
