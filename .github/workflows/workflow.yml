@@ -27,7 +27,7 @@ jobs:
   deploy:
     needs:
       - test
-    uses: ./.github/workflows/s3-deploy.yml
+    uses: tracefy/github-actions-workflows/.github/workflows/s3-deploy.yml@v1
     secrets: inherit
     with:
       node-version: 18.x
