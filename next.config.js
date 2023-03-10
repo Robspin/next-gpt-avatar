@@ -4,7 +4,8 @@ const nextConfig = {
   // For static sites images unoptimized
   images: {
     unoptimized: true
-  }
+  },
+  output: 'standalone'
 }
 
 module.exports = nextConfig

@@ -1,0 +1,12 @@
+name: CI Test
+
+on:
+  workflow_call:
+  pull_request:
+
+jobs:
+  test:
+    uses: tracefy/github-actions-workflows/.github/workflows/node-test.yml@v1
+    secrets: inherit
+    with:
+      node-version: "18"

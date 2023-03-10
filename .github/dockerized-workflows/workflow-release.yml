@@ -1,0 +1,13 @@
+name: Release
+on:
+  push:
+    tags: ['*']
+
+jobs:
+  deploy:
+    uses: tracefy/github-actions-workflows/.github/workflows/workflow-release.yml@v1
+    secrets:
+      host: ${{ secrets.SSH_HOST_TCFPDCK003 }}
+      registry: ${{ secrets.REGISTRY }} 
+      GH_PA_TOKEN: ${{ secrets.GH_PA_TOKEN }}
+      GH_PA_USER: ${{ secrets.GH_PA_USER }}

@@ -1,0 +1,46 @@
+name: Pipeline
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  clean:
+    uses: tracefy/github-actions-workflows/.github/workflows/utilities-clean.yml@v1
+  init:
+    needs:
+      - clean
+    runs-on: [ self-hosted ]
+    steps:
+      - uses: actions/checkout@v3
+  todo:
+    needs:
+      - init
+    uses: tracefy/github-actions-workflows/.github/workflows/utilities-todo.yml@v1
+    secrets: inherit
+  test:
+    needs:
+      - clean
+    uses: ./.github/workflows/test.yml
+    secrets: inherit
+
+
+  tag:
+    needs:
+      - test
+    uses: tracefy/github-actions-workflows/.github/workflows/docker-tag.yml@v1
+    secrets: inherit
+    with:
+      tag: latest
+
+  deploy-acc:
+    needs:
+      - tag
+    uses: tracefy/github-actions-workflows/.github/workflows/docker-deploy.yml@v1
+    secrets:
+      host: ${{ secrets.SSH_HOST_TCFADCK001 }}
+      registry: ${{ secrets.REGISTRY }}
+      GH_PA_TOKEN: ${{ secrets.GH_PA_TOKEN }}
+      GH_PA_USER: ${{ secrets.GH_PA_USER }}
+    with:
+      tag: latest
