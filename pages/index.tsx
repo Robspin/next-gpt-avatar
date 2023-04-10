@@ -1,18 +1,11 @@
 import Head from 'next/head'
 import { Maven_Pro } from 'next/font/google'
-import { useState } from "react"
 import ChatWindow from "@/components/chat-window"
+import Avatar from "@/components/avatar"
 
 const mavenPro = Maven_Pro({ subsets: ['latin'] })
 
 export default function Home() {
-    // const [prompts, setPrompts] = useState([])
-    //
-    // async function fetchPrompts() {
-    //     const res = await fetch('/api/prompts')
-    //     const data = await res.json()
-    //     setPrompts(data)
-    // }
 
     return (
         <>
@@ -22,11 +15,9 @@ export default function Home() {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.png" />
             </Head>
-            <main className={`h-screen p-4 bg-slate-900 ${mavenPro.className}`}>
-                <div className="h-full flex w-full flex-col">
-                    <div className="h-40 w-full bg-red-50">
-
-                    </div>
+            <main className={`h-screen flex justify-center bg-black ${mavenPro.className}`}>
+                <div className="h-full grid grid-rows-3 w-[416px] bg-slate-900 px-4 py-2 border-slate-700 border rounded text-center">
+                    <Avatar />
                     <ChatWindow />
                 </div>
             </main>

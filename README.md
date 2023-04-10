@@ -1,4 +1,4 @@
-# next-gpt
+# next-gpt-avatar
 
 ### quickstart
 
