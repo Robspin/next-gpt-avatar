@@ -1,5 +1,0 @@
-@fortawesome:registry=https://npm.fontawesome.com/
-//npm.fontawesome.com/:_authToken=INSERT_TOKEN
-
-@tracefy:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=INSERT_TOKEN
